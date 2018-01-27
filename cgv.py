@@ -4,7 +4,7 @@ import re
 
 #day = input()
 
-day = '20180126'
+day = '20180128'
 
 
 url = "http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=01&theatercode=0046&date=" + day
@@ -47,11 +47,11 @@ def movie_table(url) :
     for i in data :
 
         strong = i.find('strong')
-        print(strong.get_text(strip=True)) # title
         time = i.find_all('div' ,class_='info-timetable')
         
         #time = i.find_all('em')
         #seat = i.find_all('span', class_='early txt-lightblue')
+        cnt = 0
         
         for t in time :
 
@@ -66,6 +66,11 @@ def movie_table(url) :
                 
                 if int(n[0:2]) >= 22 :
                     n = n.replace('잔여', ' 잔여')
+                    
+                    if cnt == 0 :
+                        print(strong.get_text(strip=True)) # title
+                        cnt += 1
+                    
                     print(n)
 
 
@@ -75,6 +80,5 @@ def movie_table(url) :
 #time_table(url)
 movie_table(url)
 
-## 영화 없는 제목 빼기
 
 
